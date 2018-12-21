@@ -1,10 +1,11 @@
 import java.util.List;
 
 public class DeliveryRoute {
+	
 	private final List<City> cities;
 	private final Santa santa;
 	private final double hoursAvailable;
-	private Sleigh sleigh;
+	private final Sleigh sleigh;
 
 	public DeliveryRoute(List<City> cities, Santa santa, double hoursAvailable, Sleigh sleigh) {
 		this.cities = cities;
