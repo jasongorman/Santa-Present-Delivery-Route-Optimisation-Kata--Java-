@@ -41,4 +41,5 @@ public class DeliveryRoute {
 	List<City> getCities() {
 		return cities;
 	}
+
 }

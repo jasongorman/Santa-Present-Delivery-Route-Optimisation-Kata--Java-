@@ -37,7 +37,7 @@ public class RouteBuilderTest {
 		when(city2.presentsPerHour(any(), any(), any())).thenReturn(700.0);
 		when(highest.presentsPerHour(any(), any(), any())).thenReturn(1000.0);
 		List<City> unvisitedCities = Arrays.asList(city1 , highest, city2);
-		assertSame(highest, new RouteBuilder(null, null, current, unvisitedCities).next());
+		assertSame(highest, new RouteBuilder(null, null, current, unvisitedCities, 0).next());
 	}
 	
 	@Test
@@ -51,7 +51,7 @@ public class RouteBuilderTest {
 		List<City> cities = new ArrayList<>(Arrays.asList(city1, city2, highest));
 		Santa santa = new Santa(1);
 		Sleigh sleigh = new Sleigh(1000);
-		RouteBuilder builder = new RouteBuilder(santa , sleigh, null, cities);
+		RouteBuilder builder = new RouteBuilder(santa , sleigh, cities, 0);
 		DeliveryRoute route = builder .build();
 		assertEquals(Arrays.asList(highest, city2, city1), route .getCities());
 	}

@@ -9,12 +9,19 @@ public class RouteBuilder {
 	private final Sleigh sleigh;
 	private City current;
 	private final List<City> unvisitedCities;
+	private double hoursAvailable;
 
-	public RouteBuilder(Santa santa, Sleigh sleigh, City current, List<City> cities) {
+	public RouteBuilder(Santa santa, Sleigh sleigh, List<City> cities, double hoursAvailable) {
 		this.santa = santa;
 		this.sleigh = sleigh;
-		this.current = current;
 		this.unvisitedCities = cities;
+		this.hoursAvailable = hoursAvailable;
+	}
+	
+	// internal constructor for testing next()
+	RouteBuilder(Santa santa, Sleigh sleigh, City current, List<City> cities, double hoursAvailable) {
+		this(santa, sleigh, cities, hoursAvailable);
+		this.current = current;
 	}
 
 	City next() {
@@ -30,6 +37,6 @@ public class RouteBuilder {
 			route.add(current);
 			unvisitedCities.remove(current);
 		}
-		return new DeliveryRoute(route, santa, 0, sleigh);
+		return new DeliveryRoute(route, santa, hoursAvailable, sleigh);
 	}
 }
