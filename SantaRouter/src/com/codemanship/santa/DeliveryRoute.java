@@ -15,7 +15,7 @@ public class DeliveryRoute {
 		this.sleigh = sleigh;
 	}
 
-	int execute() {
+	public int execute() {
 		double hoursRemaining = hoursAvailable;
 		int presentsDelivered = 0;
 		City lastVisited = null;
@@ -40,6 +40,11 @@ public class DeliveryRoute {
 
 	List<City> getCities() {
 		return cities;
+	}
+	
+	@Override
+	public String toString() {
+		return cities.toString();
 	}
 
 }

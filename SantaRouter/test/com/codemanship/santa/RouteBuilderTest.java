@@ -21,7 +21,7 @@ public class RouteBuilderTest {
 	public void presentsPerHourIncludesTravelTime() {
 		Sleigh sleigh = new Sleigh(1000);
 		Santa santa = new Santa(1);
-		City to = new City(null, 3600); // 1 hour delivery time
+		City to = new City(null, 3600, ""); // 1 hour delivery time
 		City from = mock(City.class);
 		when(from.distance(to)).thenReturn(1000.0); // 1 hour travel time
 		assertEquals(1800, to.presentsPerHour(from, santa, sleigh), 0);
@@ -29,7 +29,7 @@ public class RouteBuilderTest {
 	
 	@Test
 	public void selectsNextCityWithHighestPresentsPerHour() {
-		City current = new City(null, 0);
+		City current = new City(null, 0, "");
 		City city1 = mock(City.class);
 		City city2 = mock(City.class);
 		City highest = mock(City.class);
@@ -48,7 +48,7 @@ public class RouteBuilderTest {
 		when(city1.presentsPerHour(any(), any(), any())).thenReturn(500.0);
 		when(city2.presentsPerHour(any(), any(), any())).thenReturn(700.0);
 		when(highest.presentsPerHour(any(), any(), any())).thenReturn(1000.0);
-		List<City> cities = new ArrayList<>(Arrays.asList(city1, city2, highest));
+		List<City> cities = Arrays.asList(city1, city2, highest);
 		Santa santa = new Santa(1);
 		Sleigh sleigh = new Sleigh(1000);
 		RouteBuilder builder = new RouteBuilder(santa , sleigh, cities, 0);

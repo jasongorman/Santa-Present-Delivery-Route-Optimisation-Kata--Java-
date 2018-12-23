@@ -14,8 +14,9 @@ public class RouteBuilder {
 	public RouteBuilder(Santa santa, Sleigh sleigh, List<City> cities, double hoursAvailable) {
 		this.santa = santa;
 		this.sleigh = sleigh;
-		this.unvisitedCities = cities;
+		this.unvisitedCities = new ArrayList<>(cities);
 		this.hoursAvailable = hoursAvailable;
+		this.current = findStart(santa, hoursAvailable);
 	}
 	
 	// internal constructor for testing next()
@@ -38,5 +39,11 @@ public class RouteBuilder {
 			unvisitedCities.remove(current);
 		}
 		return new DeliveryRoute(route, santa, hoursAvailable, sleigh);
+	}
+	
+	private City findStart(Santa santa, double hoursAvailable) {
+		return unvisitedCities.stream()
+				.max(Comparator.comparing(c -> ((City)c).deliver(santa, hoursAvailable)))
+				.get();
 	}
 }

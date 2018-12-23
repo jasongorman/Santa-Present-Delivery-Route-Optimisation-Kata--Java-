@@ -5,10 +5,13 @@ import java.util.List;
 public class HeapsPermuter {
 	
 	public static Object[][] permute(Object[] array){
-		return permute(array, array.length, new ArrayList<Object[]>());
+		return permute(array, array.length, new ArrayList<Object[]>())
+				.stream()
+				.map(x -> x)
+				.toArray(Object[][]::new);
 	}
 
-	private static Object[][] permute(Object[] array, int n, List<Object[]> permutations) {
+	private static List<Object[]> permute(Object[] array, int n, List<Object[]> permutations) {
 		if(n == 1) {
 			permutations.add(array.clone());
 		} else {
@@ -22,7 +25,7 @@ public class HeapsPermuter {
 			}
 			permute(array, n - 1, permutations);
 		}
-		return permutations.stream().map(x -> x).toArray(Object[][]::new);
+		return permutations;
 		
 	}
 
