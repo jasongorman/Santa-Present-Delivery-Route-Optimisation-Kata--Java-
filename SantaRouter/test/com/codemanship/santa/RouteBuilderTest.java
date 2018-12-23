@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +37,23 @@ public class RouteBuilderTest {
 		when(city2.presentsPerHour(any(), any(), any())).thenReturn(700.0);
 		when(highest.presentsPerHour(any(), any(), any())).thenReturn(1000.0);
 		List<City> unvisitedCities = Arrays.asList(city1 , highest, city2);
-		assertSame(highest, new RouteBuilder(null, null, current, unvisitedCities).findNext());
+		assertSame(highest, new RouteBuilder(null, null, current, unvisitedCities).next());
+	}
+	
+	@Test
+	public void buildsRouteFromCityList() {
+		City city1 = mock(City.class);
+		City city2 = mock(City.class);
+		City highest = mock(City.class);
+		when(city1.presentsPerHour(any(), any(), any())).thenReturn(500.0);
+		when(city2.presentsPerHour(any(), any(), any())).thenReturn(700.0);
+		when(highest.presentsPerHour(any(), any(), any())).thenReturn(1000.0);
+		List<City> cities = new ArrayList<>(Arrays.asList(city1, city2, highest));
+		Santa santa = new Santa(1);
+		Sleigh sleigh = new Sleigh(1000);
+		RouteBuilder builder = new RouteBuilder(santa , sleigh, null, cities);
+		DeliveryRoute route = builder .build();
+		assertEquals(Arrays.asList(highest, city2, city1), route .getCities());
 	}
 
 }

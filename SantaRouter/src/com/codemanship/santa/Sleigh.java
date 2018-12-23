@@ -9,6 +9,8 @@ public class Sleigh {
 	}
 
 	public double travelTime(City from, City to) {
+		if(from == null)
+			return 0;
 		return from.distance(to)/speed;
 	}
 

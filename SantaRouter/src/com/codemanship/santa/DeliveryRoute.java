@@ -37,4 +37,8 @@ public class DeliveryRoute {
 			hoursRemaining -= sleigh.travelTime(city, lastVisited);
 		return hoursRemaining;
 	}
+
+	List<City> getCities() {
+		return cities;
+	}
 }
